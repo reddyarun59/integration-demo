@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserPlus } from 'lucide-react';
 import { useIntegrationApp } from '@integration-app/react';
@@ -53,6 +53,21 @@ function CreateContact() {
       [e.target.name]: e.target.value,
     }));
   };
+
+  const initCall = async () => {
+    await integrationApp.self.get();
+
+    const { items: connections } = await integrationApp.connections.find();
+
+    if (connections?.length > 0 && connections?.[0]?.name?.toLowerCase() === 'hubspot') {
+      const responseUser = await integrationApp.connection(connections?.[0]?.id).proxy.get('/account-info/v3/details');
+      localStorage.setItem('portalId', JSON.stringify(responseUser?.portalId));
+    }
+  };
+
+  useEffect(() => {
+    initCall();
+  }, []);
 
   return (
     <div className="max-w-2xl mx-auto">

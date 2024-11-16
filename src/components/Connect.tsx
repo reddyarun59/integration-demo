@@ -28,7 +28,7 @@ function Connect() {
 
   const getConnections = async () => {
     const { items: connections } = await integrationApp.connections.find();
-    console.log(connections, 'connections');
+    // console.log(connections, 'connections');
     // if (connections?.length > 0 && connections?.[0]?.name?.toLowerCase() === 'hubspot') {
     //   console.log('hubspot');
     // }
@@ -44,7 +44,7 @@ function Connect() {
     getConnections();
   }, []);
 
-  console.log(connectionID, 'connectionID');
+  //   console.log(connectionID, 'connectionID');
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center">

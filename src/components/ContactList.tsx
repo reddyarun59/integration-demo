@@ -29,12 +29,6 @@ function ContactList() {
       contact.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  //   const handleDelete = (id: number) => {
-  //     const updatedContacts = contacts.filter((contact) => contact.id !== id);
-  //     setContacts(updatedContacts);
-  //     localStorage.setItem('contacts', JSON.stringify(updatedContacts));
-  //   };
-
   return (
     <div className="max-w-6xl mx-auto">
       <div className="bg-white rounded-xl shadow-lg p-8">
