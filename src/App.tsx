@@ -31,7 +31,7 @@ function App() {
 
       // const connectionId = localStorage.getItem('connectionId')?.toString() || connections?.[0]?.integrationId || '';
 
-      console.log('hiiiiiiii');
+      // console.log('hiiiiiiii');
 
       const responseUser = await integrationApp.connection(connections?.[0]?.id).proxy.get('/account-info/v3/details');
       localStorage.setItem('portalId', JSON.stringify(responseUser?.portalId));
