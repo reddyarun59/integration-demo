@@ -76,7 +76,6 @@ function App() {
                 <div className="flex space-x-4">
                   <Link to="/create" className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-orange-500">
                     <UserPlus className="h-5 w-5 mr-1" />
-                    <button onClick={hey}>hellloo</button>
                     Create Contact
                   </Link>
                   <Link
