@@ -11,6 +11,8 @@ import Connect from './components/Connect';
 import CreateContact from './components/CreateContact';
 import ContactList from './components/ContactList';
 
+const integrationAppToken = import.meta.env.VITE_INTEGRATION_APP_TOKEN;
+
 function App() {
   const integrationApp = new IntegrationAppClient({
     token: import.meta.env.VITE_INTEGRATION_APP_TOKEN,
@@ -34,7 +36,7 @@ function App() {
   }, []);
 
   return (
-    <IntegrationAppProvider token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MzIxNTZlMTc2ZTEzZGUyYWE2MzQ5YyIsImlzcyI6IjM4OTk0NzNiLThhMGUtNDZkNC1iZWIzLWVmNmFlZmQ3YzE4NSIsImV4cCI6MTc2MzE0NjU3N30.M8L-n673IsEL9CXTcEdRpZ-FnmY2Fg1nfh1t_ouNNJg">
+    <IntegrationAppProvider token={integrationAppToken}>
       <BrowserRouter>
         <div className="min-h-screen bg-gray-50">
           <nav className="bg-white shadow-lg">
