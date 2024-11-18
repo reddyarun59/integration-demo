@@ -40,8 +40,8 @@ function App() {
   }, []);
 
   return (
-    <IntegrationAppProvider token={integrationAppToken}>
-      <BrowserRouter basename="/">
+    <BrowserRouter basename="/">
+      <IntegrationAppProvider token={integrationAppToken}>
         <div className="min-h-screen bg-gray-50">
           <nav className="bg-white shadow-lg">
             <div className="max-w-7xl mx-auto px-4">
@@ -77,8 +77,8 @@ function App() {
             </Routes>
           </main>
         </div>
-      </BrowserRouter>
-    </IntegrationAppProvider>
+      </IntegrationAppProvider>
+    </BrowserRouter>
   );
 }
 
