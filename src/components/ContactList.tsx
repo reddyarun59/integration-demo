@@ -16,9 +16,9 @@ function ContactList() {
   const [portalId, setPortalId] = useState('');
 
   useEffect(() => {
-    const storedContacts = JSON.parse(localStorage.getItem('contacts') || '[]');
-    const portalId = JSON.parse(localStorage.getItem('portalId') as string);
-    setContacts(storedContacts);
+    const storedContacts = JSON.parse(localStorage.getItem('contacts') ?? '[]');
+    const portalId = JSON.parse(localStorage.getItem('portalId') as string) || '';
+    setContacts(storedContacts || []);
     setPortalId(portalId);
   }, []);
 

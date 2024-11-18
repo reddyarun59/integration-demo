@@ -10,20 +10,24 @@ function Connect() {
 
   const integrationApp = useIntegrationApp();
   const handleConnect = async () => {
-    const result = await integrationApp.open();
-    const { items: connections } = await integrationApp.connections.find();
+    try {
+      const result = await integrationApp.open();
+      const { items: connections } = await integrationApp.connections.find();
 
-    const connectionId = localStorage.getItem('connectionId') || connections?.[0]?.integrationId || '';
+      const connectionId = localStorage.getItem('connectionId') || connections?.[0]?.integrationId || '';
 
-    if (connectionId?.length > 0) {
-      setConnectionID(connectionId);
+      if (connectionId?.length > 0) {
+        setConnectionID(connectionId);
 
-      setIsConnected(true);
+        setIsConnected(true);
+      }
+
+      navigate('/create');
+
+      console.log(result);
+    } catch (error) {
+      console.error(error);
     }
-
-    navigate('/create');
-
-    console.log(result);
   };
 
   const getConnections = async () => {
