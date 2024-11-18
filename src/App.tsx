@@ -5,7 +5,7 @@ import {
 } from '@integration-app/react';
 
 import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, HashRouter } from 'react-router-dom';
 import { Building2, Users, UserPlus } from 'lucide-react';
 import Connect from './components/Connect';
 import CreateContact from './components/CreateContact';
@@ -40,7 +40,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter basename="/">
+    <HashRouter>
       <IntegrationAppProvider token={integrationAppToken}>
         <div className="min-h-screen bg-gray-50">
           <nav className="bg-white shadow-lg">
@@ -78,7 +78,7 @@ function App() {
           </main>
         </div>
       </IntegrationAppProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
