@@ -40,7 +40,7 @@ function App() {
   }, []);
 
   return (
-    <HashRouter>
+    <HashRouter basename="/">
       <IntegrationAppProvider token={integrationAppToken}>
         <div className="min-h-screen bg-gray-50">
           <nav className="bg-white shadow-lg">
