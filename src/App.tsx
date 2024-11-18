@@ -41,7 +41,7 @@ function App() {
 
   return (
     <IntegrationAppProvider token={integrationAppToken}>
-      <BrowserRouter>
+      <BrowserRouter basename="/">
         <div className="min-h-screen bg-gray-50">
           <nav className="bg-white shadow-lg">
             <div className="max-w-7xl mx-auto px-4">
