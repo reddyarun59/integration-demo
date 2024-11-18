@@ -5,7 +5,7 @@ import {
 } from '@integration-app/react';
 
 import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { Building2, Users, UserPlus } from 'lucide-react';
 import Connect from './components/Connect';
 import CreateContact from './components/CreateContact';
@@ -14,6 +14,7 @@ import ContactList from './components/ContactList';
 const integrationAppToken = import.meta.env.VITE_INTEGRATION_APP_TOKEN;
 
 function App() {
+  const navigate = useNavigate();
   const integrationApp = new IntegrationAppClient({
     token: import.meta.env.VITE_INTEGRATION_APP_TOKEN,
   });
@@ -37,7 +38,7 @@ function App() {
 
   useEffect(() => {
     initCall();
-  }, []);
+  }, [navigate]);
 
   return (
     <IntegrationAppProvider token={integrationAppToken}>
