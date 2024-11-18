@@ -1,37 +1,41 @@
-import {
-  IntegrationAppClient,
-  IntegrationAppProvider,
-  // useIntegrationApp
-} from '@integration-app/react';
-
+import { IntegrationAppClient, IntegrationAppProvider } from '@integration-app/react';
 import { useEffect } from 'react';
 import { Routes, Route, Link, BrowserRouter } from 'react-router-dom';
 import { Building2, Users, UserPlus } from 'lucide-react';
-import Connect from './components/Connect';
-import CreateContact from './components/CreateContact';
-import ContactList from './components/ContactList';
+import { lazy, Suspense } from 'react';
+
+const Connect = lazy(() => import('./components/Connect'));
+const CreateContact = lazy(() => import('./components/CreateContact'));
+const ContactList = lazy(() => import('./components/ContactList'));
 
 const integrationAppToken = import.meta.env.VITE_INTEGRATION_APP_TOKEN;
 
 function App() {
   const integrationApp = new IntegrationAppClient({
-    token: import.meta.env.VITE_INTEGRATION_APP_TOKEN,
+    token: integrationAppToken,
   });
-
-  // const [connections, setConnections] = useState<string[]>([]);
 
   const initCall = async () => {
     try {
+      if (!integrationAppToken) {
+        console.error('Integration App Token is missing.');
+        return;
+      }
+
       await integrationApp.self.get();
 
       const { items: connections } = await integrationApp.connections.find();
 
-      if (connections?.length > 0 && connections?.[0]?.name?.toLowerCase() === 'hubspot') {
-        const responseUser = await integrationApp.connection(connections?.[0]?.id).proxy.get('/account-info/v3/details');
-        localStorage.setItem('portalId', JSON.stringify(responseUser?.portalId));
+      if (connections?.length > 0 && connections[0]?.name?.toLowerCase() === 'hubspot') {
+        const responseUser = await integrationApp.connection(connections[0].id).proxy.get('/account-info/v3/details');
+        if (responseUser?.portalId) {
+          localStorage.setItem('portalId', JSON.stringify(responseUser.portalId));
+        } else {
+          console.warn('Portal ID is missing in the response.');
+        }
       }
     } catch (error) {
-      console.log(error);
+      console.error('Error during initialization:', error);
     }
   };
 
@@ -70,11 +74,13 @@ function App() {
           </nav>
 
           <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-            <Routes>
-              <Route path="/" element={<Connect />} />
-              <Route path="/create" element={<CreateContact />} />
-              <Route path="/contacts" element={<ContactList />} />
-            </Routes>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Routes>
+                <Route path="/" element={<Connect />} />
+                <Route path="/create" element={<CreateContact />} />
+                <Route path="/contacts" element={<ContactList />} />
+              </Routes>
+            </Suspense>
           </main>
         </div>
       </IntegrationAppProvider>
