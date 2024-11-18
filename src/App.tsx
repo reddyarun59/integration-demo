@@ -21,13 +21,17 @@ function App() {
   // const [connections, setConnections] = useState<string[]>([]);
 
   const initCall = async () => {
-    await integrationApp.self.get();
+    try {
+      await integrationApp.self.get();
 
-    const { items: connections } = await integrationApp.connections.find();
+      const { items: connections } = await integrationApp.connections.find();
 
-    if (connections?.length > 0 && connections?.[0]?.name?.toLowerCase() === 'hubspot') {
-      const responseUser = await integrationApp.connection(connections?.[0]?.id).proxy.get('/account-info/v3/details');
-      localStorage.setItem('portalId', JSON.stringify(responseUser?.portalId));
+      if (connections?.length > 0 && connections?.[0]?.name?.toLowerCase() === 'hubspot') {
+        const responseUser = await integrationApp.connection(connections?.[0]?.id).proxy.get('/account-info/v3/details');
+        localStorage.setItem('portalId', JSON.stringify(responseUser?.portalId));
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
